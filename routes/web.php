@@ -1,7 +1,9 @@
 <?php
 
+use App\Helper\Pdf\ReportGenerator;
 use App\Models\TraineeReport;
 use Illuminate\Support\Facades\Route;
+use mikehaertl\pdftk\Pdf;
 
 Route::get('/', function () {
     return redirect('/app');
@@ -44,4 +46,22 @@ Route::get('/forms', function () {
         'description' => "Berichtsheft mit Larabel dies das",
         'base_url' => "https://easyberichtsheft-laravel.ddev.site/"
     ]);
+});
+
+
+/**
+ * Export a report by its ID as PDF file
+ * example URL: /export/pdf/9cd85279-fff9-4d21-87e4-f93e32585769
+ */
+Route::get('/export/pdf/{id}', function ($id) {
+    $generator = new ReportGenerator();
+    try {
+        $report = $generator->generateReport($id);
+        $templateFilePath = public_path() . ReportGenerator::PDF_TEMPLATE_FILE_PATH;
+        $newPdf = new Pdf($templateFilePath);
+        $resultPdf = $newPdf->fillForm($report)->needAppearances();
+        $resultPdf->send('report.pdf', true);
+    } catch (\Exception $e) {
+        return response()->json(['message' => $e->getMessage()], 500);
+    }
 });

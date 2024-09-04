@@ -2,9 +2,6 @@
 
 <div class="mt-8">
     <div class="mt-4" x-data="{
-        submitForm: () => {
-            console.log('submitting form');
-        },
         openSection: 0,
         toggle(index) {
             this.openSection = this.openSection === index ? -1 : index;
@@ -72,24 +69,9 @@
                 console.log('error', error);
             });
         },
-    
+
     }">
         <div class="p-6 bg-white rounded-md shadow-md">
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if (session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
-            @if (session('info'))
-                <div class="alert alert-info">
-                    {{ session('info') }}
-                </div>
-            @endif
             <h2 class="text-lg font-semibold text-gray-700">Neuen Eintrag anlegen</h2>
             <div>
                 <form x-on:submit.prevent="postReport">
