@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\TraineeReport;
 use Illuminate\Http\Request;
 
-class ReüortController extends Controller
+class ReportController extends Controller
 {
     public function store(Request $request)
     {
@@ -64,5 +65,33 @@ class ReüortController extends Controller
         $report->delete();
 
         return response()->json(null, 204);  // Return a no-content response
+    }
+
+    public function testSave(Request $request)
+    {
+        $formData = $request->getPayload();
+        $formDataParameters = $formData->all();
+        $report = TraineeReport::create([
+            'trainee_name' => $formData->getString('name'),
+            'trainee_year' => $formData->getInt('year'),
+            'trainee_section' => $formData->getString('area'),
+            'report_start_date' => $formData->getString('week_start'),
+            'report_end_date' => $formData->getString('week_end'),
+            'report_content_monday' => $formDataParameters['monday']['content'],
+            'report_hours_monday' => $formDataParameters['monday']['hours'],
+            'report_content_tuesday' => $formDataParameters['tuesday']['content'],
+            'report_hours_tuesday' => $formDataParameters['tuesday']['hours'],
+            'report_content_wednesday' => $formDataParameters['wednesday']['content'],
+            'report_hours_wednesday' => $formDataParameters['wednesday']['hours'],
+            'report_content_thursday' => $formDataParameters['thursday']['content'],
+            'report_hours_thursday' => $formDataParameters['thursday']['hours'],
+            'report_content_friday' => $formDataParameters['friday']['content'],
+            'report_hours_friday' => $formDataParameters['friday']['hours'],
+            'report_content_saturday' => 'frei',
+            'report_hours_saturday' => 0,
+            'report_content_sunday' => 'frei',
+            'report_hours_sunday' => 0,
+        ]);
+        return response()->json($formDataParameters, 201);  // Return the created report
     }
 }

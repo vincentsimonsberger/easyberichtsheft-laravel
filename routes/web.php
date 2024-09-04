@@ -4,7 +4,7 @@ use App\Models\TraineeReport;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('app');
+    return redirect('/app');
 });
 
 Route::get('/app', function () {

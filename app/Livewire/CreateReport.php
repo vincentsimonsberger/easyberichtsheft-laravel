@@ -6,6 +6,7 @@ use LivewireUI\Modal\ModalComponent;
 
 class CreateReport extends ModalComponent
 {
+    protected $listeners = ['save' => 'save'];
     public function render()
     {
         return view('livewire.create-report');
