@@ -4,13 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\TraineeReport;
 use Illuminate\Http\Request;
 
-class TraineeReportController extends Controller
+class ReüortController extends Controller
 {
-    public function index()
-    {
-        return TraineeReport::all();  // Get all reports
-    }
-
     public function store(Request $request)
     {
         $validated = $request->validate([

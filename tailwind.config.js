@@ -14,20 +14,26 @@
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
-      "./resources/**/*.blade.php",
-      "./resources/**/*.js",
-      "./resources/**/*.vue",
+        "./resources/**/*.blade.php",
+        "./resources/**/*.js",
+        "./resources/**/*.vue",
+        "./vendor/wire-elements/modal/resources/views/*.blade.php",
+        "./storage/framework/views/*.php",
+        "./resources/views/**/*.blade.php",
     ],
-    purge: ['./resources/**/*.blade.php'],
-    theme: {
-      extend: {
-        fontFamily: {
-          roboto: ['Roboto'],
+    safelist: [
+        {
+            pattern: /max-w-(sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl)/,
+            variants: ["sm", "md", "lg", "xl", "2xl"],
         },
-      },
+    ],
+    theme: {
+        extend: {
+            fontFamily: {
+                roboto: ["Roboto"],
+            },
+        },
     },
     variants: {},
-    plugins: [
-      require('@tailwindcss/forms'),
-    ],
-  }
+    plugins: [require("@tailwindcss/forms")],
+};

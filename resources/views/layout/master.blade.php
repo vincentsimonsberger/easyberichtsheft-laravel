@@ -10,6 +10,7 @@
     <meta name="description" content="{{ $description }}">
     @vite('resources/css/app.css')
     @livewireScripts
+
     <title>{{ $title }}</title>
 </head>
 
@@ -27,6 +28,7 @@
             </main>
         </div>
     </div>
+
 </body>
 
 </html>
