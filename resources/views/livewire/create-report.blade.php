@@ -9,6 +9,23 @@
         isOpen(index) {
             return this.openSection === index;
         },
+        notification: {
+            show: false,
+            message: 'Default message',
+            type: 'success',
+            duration: 3000
+        },
+        showAlertMessage(type = 'success', content = 'Default message', duration = 3000) {
+            this.notification.show = true;
+            this.notification.message = content;
+            this.notification.type = type;
+            this.notification.duration = duration;
+            setTimeout(() => {
+                this.notification.show = false;
+                this.notification.message = '';
+                this.notification.type = '';
+            }, this.notification.duration);
+        },
         formData: {
             name: '',
             year: '1',
@@ -46,35 +63,37 @@
         },
         postReport() {
             console.log(this.formData);
-            let body = JSON.stringify(this.formData);
-            let url = '/api/v1/reports';
-            let method = 'POST';
-            let headers = {
-                'Content-Type': 'application/json',
-            };
-            fetch(url, {
-                method: method,
-                headers: headers,
-                body: body
-            }).then(response => {
-                if (response.ok) {
-                    console.log('response ok');
-                    response.json().then(data => {
-                        console.log(data);
-                    });
-                } else {
-                    console.log('response not ok');
-                }
-            }).catch(error => {
-                console.log('error', error);
-            });
+            this.showAlertMessage('success', 'Report wurde erfolgreich gespeichert', 5000);
+    
+            // let body = JSON.stringify(this.formData);
+            // let url = '/api/v1/reports';
+            // let method = 'POST';
+            // let headers = {
+            //     'Content-Type': 'application/json',
+            // };
+            // fetch(url, {
+            //     method: method,
+            //     headers: headers,
+            //     body: body
+            // }).then(response => {
+            //     if (response.ok) {
+            //         console.log('response ok');
+            //         response.json().then(data => {
+            //             console.log(data);
+            //         });
+            //     } else {
+            //         console.log('response not ok');
+            //     }
+            // }).catch(error => {
+            //     console.log('error', error);
+            // });
         },
-
+    
     }">
         <div class="p-6 bg-white rounded-md shadow-md">
             <h2 class="text-lg font-semibold text-gray-700">Neuen Eintrag anlegen</h2>
             <div>
-                <form x-on:submit.prevent="postReport">
+                <form x-on:submit.prevent='postReport()'>
                     <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 md:grid-cols-6">
                         <div class="md:col-span-3">
                             <label class="text-gray-700" for="username">Name</label>

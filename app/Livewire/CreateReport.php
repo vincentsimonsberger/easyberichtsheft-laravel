@@ -6,10 +6,18 @@ use LivewireUI\Modal\ModalComponent;
 
 class CreateReport extends ModalComponent
 {
-    protected $listeners = ['save' => 'save'];
+    protected $listeners = [];
     public function render()
     {
         return view('livewire.create-report');
+    }
+
+    public function update()
+    {
+        // Validate the data
+        // Save the report
+        session()->flash('success', 'Report updated successfully!');
+        // $this->closeModal();
     }
 
     public function save()

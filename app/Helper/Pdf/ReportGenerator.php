@@ -17,7 +17,6 @@ class ReportGenerator
      */
     public function generateReport(string $id): array
     {
-        $templateFilePath = public_path() . self::PDF_TEMPLATE_FILE_PATH;
         /** @var TraineeReport $traineeReport */
         $traineeReport = TraineeReport::findOrFail($id);
         if (!$traineeReport) {
@@ -26,6 +25,23 @@ class ReportGenerator
         $reportData = $traineeReport->getAttributes();
         $preparedData = $this->prepareReportData($reportData);
         return $preparedData;
+    }
+
+    /**
+     * Get the report data
+     * @param string $id
+     * @return array
+     * @throws \Exception
+     */
+    public function getReportData(string $id)
+    {
+        /** @var TraineeReport $traineeReport */
+        $traineeReport = TraineeReport::findOrFail($id);
+        if (!$traineeReport) {
+            throw new \Exception("Report not found!");
+        }
+        $reportData = $traineeReport->getAttributes();
+        return $reportData;
     }
 
 

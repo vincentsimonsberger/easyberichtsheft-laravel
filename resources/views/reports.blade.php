@@ -1,13 +1,11 @@
 @extends('layout.master')
 @section('body')
-    @livewire('wire-elements-modal')
-
     <h3 class="text-3xl font-medium text-gray-700">Dashboard</h3>
 
     <div class="mt-4">
         <div class="flex flex-wrap -mx-6">
             <div class="w-full px-6 sm:w-1/2 xl:w-1/3 ">
-                <div onclick="Livewire.dispatch('openModal', { component: 'create-report'})"
+                <div onclick="Livewire.dispatch('openModal', { component: { component: 'create-report'} })"
                     class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm cursor-pointer hover:bg-gray-300">
                     <div class="p-3 bg-blue-600 bg-opacity-75 rounded-full">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -20,7 +18,7 @@
                     </div>
 
                     <div class="mx-5">
-                        <h4 class="text-2xl font-semibold text-gray-700">Neuen Eintrag anlegen</h4>
+                        <h4 class="text-2xl font-semibold text-gray-700">Neuen Eintrag anlegen, ID</h4>
                     </div>
                 </div>
             </div>
@@ -89,7 +87,10 @@
                                 <td
                                     class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
                                     <div class="text-sm leading-5 text-gray-900 text-start">
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">View</a>
+                                        <a href="/export/pdf/view/{{ $report['id'] }}" target="_blank"
+                                            class="text-indigo-600 hover:text-indigo-900">View</a>
+                                        <a href="/export/pdf/download/{{ $report['id'] }}"
+                                            class="text-indigo-600 hover:text-indigo-900">Download</a>
                                         <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                         <a href="#" class="text-indigo-600 hover:text-indigo-900">Delete</a>
                                     </div>
@@ -101,4 +102,5 @@
             </div>
         </div>
     </div>
+    @livewire('wire-elements-modal')
 @endsection
